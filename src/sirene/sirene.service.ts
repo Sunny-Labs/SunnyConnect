@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 
 @Injectable()
 export class SireneService {
+  private token: string;
   private readonly key: string;
   private readonly secret: string;
   constructor() {
@@ -38,6 +39,7 @@ export class SireneService {
   async getToken(): Promise<string> {
     // do a curl request with a Basic Base64 encoded key:secret
     // return the token
+    if (this.token) return this.token;
     const options = {
       hostname: 'api.insee.fr',
       path: '/token',
@@ -53,6 +55,7 @@ export class SireneService {
       grant_type: 'client_credentials',
     });
     const response = await this.makeRequest(options, params);
+    this.token = response['access_token'];
     return response['access_token'];
   }
   async getInfo(siren: string): Promise<object> {
@@ -60,6 +63,20 @@ export class SireneService {
     const options = {
       hostname: 'api.insee.fr',
       path: '/entreprises/sirene/V3/siren/' + siren,
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    return await this.makeRequest(options);
+  }
+  async getSiretInfo(siret: string): Promise<object> {
+    const token = await this.getToken();
+    console.log(token);
+    console.log(siret);
+    const options = {
+      hostname: 'api.insee.fr',
+      path: '/entreprises/sirene/V3/siret/' + siret,
       method: 'GET',
       headers: {
         Authorization: 'Bearer ' + token,
