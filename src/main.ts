@@ -11,6 +11,6 @@ async function bootstrap() {
     credentials: true, // Autorise les cookies et les en-têtes d'authentification
   };
   app.enableCors(corsOptions);
-  await app.listen(3000);
+  await app.listen(process.env.DEPLOY_PORT);
 }
 bootstrap();
