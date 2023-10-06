@@ -1,6 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import * as https from "https";
-import * as dotenv from "dotenv";
+import { Injectable } from '@nestjs/common';
+import * as https from 'https';
 
 @Injectable()
 export class SireneService {
@@ -8,7 +7,6 @@ export class SireneService {
   private readonly key: string;
   private readonly secret: string;
   constructor() {
-    dotenv.config();
     this.key = process.env.SIRENE_KEY;
     this.secret = process.env.SIRENE_SECRET;
   }

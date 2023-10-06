@@ -4,6 +4,6 @@ import { SireneService } from './sirene.service';
 
 @Module({
   controllers: [SireneController],
-  providers: [SireneService]
+  providers: [SireneService],
 })
 export class SireneModule {}

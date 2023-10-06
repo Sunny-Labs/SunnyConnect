@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { SireneService } from "./sirene.service";
+import { Controller, Get, Param } from '@nestjs/common';
+import { SireneService } from './sirene.service';
 
 @Controller('sirene')
 export class SireneController {
